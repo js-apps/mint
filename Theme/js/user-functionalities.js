@@ -19,7 +19,7 @@ export default user => {
 		            .show();
 		    }
 		}
-	}
+	};
 
 	return user;
-}
+};
