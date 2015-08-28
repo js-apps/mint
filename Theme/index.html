@@ -61,10 +61,13 @@
                         <a href="#contact" id="contact-btn">Contact</a>
                     </li>
                     <li>
-                        <a href="#login-register" id="login-register-btn">Login/Register</a>
+                        <a href="#login-register" id="login-register-btn"></a>
                     </li>
                     <li>
-                        
+                        <a href="#" id="logout-btn"></a>
+                    </li>
+                    <li>
+                        <a href="#" id="current-user-btn"></a>
                     </li>
                 </ul>
             </div>
@@ -237,9 +240,19 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    
+    <!-- System.js -->
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
 
-    <script src="js/main.js"></script>
+    <!-- Parse -->
+    <script src="js/parse-1.5.0.min.js"></script>
 
+    <!-- Custom scripts-->
+    <script type="text/javascript">
+        Parse.initialize("TcObk58IV5qw2hvRxMEOkJQNnsQnc8KSDNohJzjy", "mpDcTNyhsHdSC28FbWj2bVkVrjkk8hQz8HSpcM1c");
+        System.import('js/main')
+    </script>
 </body>
 
 </html>
