@@ -1,0 +1,19 @@
+#posts {
+	border: 1px solid black;
+	width: 200px;
+	height: 200px;
+	overflow-y: scroll;
+}
+
+#post-list  {
+	padding: 0 0 0 10px;
+}
+
+#post-list  li{
+	list-style-type: none;	
+}
+
+#post-content {
+	width: 200px;
+	height: 100px;
+}
