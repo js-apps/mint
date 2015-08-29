@@ -17,12 +17,12 @@ export default validator => {
 					message: 'The username must be between ' +
 					CONSTANTS.MIN_USERNAME_LENGTH + ' and ' +
 					CONSTANTS.MAX_USERNAME_LENGTH + ' symbols long and can contain only letters, numbers, underscores, or hyphens!'
-				}
+				};
 			} else {
 				return {
 					isValid: true,
 					message: ''
-				}
+				};
 			}
 		},
 		validatePassword: function(password) {
@@ -32,12 +32,12 @@ export default validator => {
 					message: 'The password must be between ' +
 					CONSTANTS.MIN_PASSWORD_LENGTH + ' and ' +
 					CONSTANTS.MAX_PASSWORD_LENGTH + ' symbols long and can contain only letters, numbers, underscores, or hyphens!'
-				}
+				};
 			} else {
 				return {
 					isValid: true,
 					message: ''
-				}
+				};
 			}
 		},
 		validateMatchingPasswords: function(passwordOne, passwordTwo) {
@@ -45,12 +45,12 @@ export default validator => {
 				return {
 					isValid: true,
 					message: ''
-				}
+				};
 			} else {
 				return {
 					isValid: false,
 					message: 'The passwords do not match!'
-				}
+				};
 			}
 		},
 		validateEmail: function(email) {
@@ -58,15 +58,15 @@ export default validator => {
 				return {
 					isValid: true,
 					message: ''
-				}
+				};
 			} else {
 				return {
 					isValid: false,
 					message: 'The email is invalid'
-				}
+				};
 			}
 		}
 	};
 
 	return validator;
-}
+};

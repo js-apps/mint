@@ -83,7 +83,7 @@ $('#main-container').on('click', '#register-submit', function() {
 	var usernameValidationResult = validator().validateUsername(username);
 	var passwordValidationResult = validator().validatePassword(password);
 	var passwordMatchValidationResult = validator().validateMatchingPasswords(password, passwordConfirm);
-	var emailValidationResult = validator.validateEmail(email);
+	var emailValidationResult = validator().validateEmail(email);
 
 	var usernameIsValid = usernameValidationResult.isValid;
 	var passwordIsValid = passwordValidationResult.isValid;
@@ -105,4 +105,4 @@ $('#main-container').on('click', '#register-submit', function() {
 		$('#register-error-label')
 	    		.html('The email is not valid.');
 	}
-})
+});
