@@ -59,3 +59,16 @@ $('#logout-btn').on('click', function() {
 	Parse.User.logOut();
 	user().setUserButtons();
 });
+
+$('#chat-btn').on('click', function() {
+	var target = $(this);
+	$.ajax({
+		url: './partials/posts.html',
+		contentType: 'text/plain',
+		method: 'GET',
+		success: function(data) {
+			$('#main-container').html(data);
+			$('html, body').scrollTop($(target.attr('href')).offset().top);
+		}
+	});
+});
