@@ -1,5 +1,5 @@
 import user from 'js/user-functionalities';
-import userPosts from 'js/user-posts.js';
+import userPosts from 'js/user-posts';
 
 user().setUserButtons();
 
@@ -69,7 +69,7 @@ $('#chat-btn').on('click', function() {
 		method: 'GET',
 		success: function(data) {
 			$('#main-container').html(data);
-			userPosts().getAllPosts();
+			userPosts().getAllPosts(); // eto go
 			$('html, body').scrollTop($(target.attr('href')).offset().top);
 		}
 	});
