@@ -1,5 +1,6 @@
 import user from 'js/user-functionalities';
 import userPosts from 'js/user-posts';
+import dataPersister from 'js/data';
 
 user().setUserButtons();
 
@@ -69,7 +70,21 @@ $('#chat-btn').on('click', function() {
 		method: 'GET',
 		success: function(data) {
 			$('#main-container').html(data);
-			userPosts().getAllPosts(); // eto go
+			userPosts().getAllPosts();
+			$('html, body').scrollTop($(target.attr('href')).offset().top);
+		}
+	});
+});
+
+$('#competitions-btn').on('click', function() {
+	var target = $(this);
+	$.ajax({
+		url: './partials/competitions.html',
+		contentType: 'text/plain',
+		method: 'GET',
+		success: function(data) {
+			$('#main-container').html(data);
+			dataPersister().getAllCompetitions();
 			$('html, body').scrollTop($(target.attr('href')).offset().top);
 		}
 	});
