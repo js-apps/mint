@@ -90,23 +90,19 @@ $('#competitions-btn').on('click', function() {
 	});
 });
 
-$('#main-container').on('click', '#competitions-list a', function() {
-	var competitionId = $(this).attr('data-competition-join-id');
-});
-
-$('[data-competition-id]').on('click', function(){
-	console.log(this);
-	//$.ajax({
-	//	url: './partials/competition.html',
-	//	contentType: 'text/plain',
-	//	method: 'GET',
-	//	success: function(data) {
-	//		$('#main-container').html(data);
-	//		dataPersister().getCometition(competitionId);
-	//		$('html, body').scrollTop($(target.attr('href')).offset().top);
-	//	}
-	//});
-
+$('#main-container').on('click', '#competitions-list a[data-competition-details-id]', function() {
+	var competitionId = $(this).attr('data-competition-details-id');
+	var target = $(this);
+	$.ajax({
+		url: './partials/competition.html',
+		contentType: 'text/plain',
+		method: 'GET',
+		success: function(data) {
+			$('#main-container').html(data);
+			dataPersister().getCompetition(competitionId);
+			//$('html, body').scrollTop($(target.attr('href')).offset().top);
+		}
+	});
 });
 
 $('#post-submit').on('click', function() { //Click on submit button in chat. I can't fire this event!

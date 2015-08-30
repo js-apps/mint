@@ -45,15 +45,61 @@ export default dataPersister => {
         makePost: function() {
            // TODO
         },
+        getComeptitionById : function(id){
+            var query = new Parse.Query(UserCompetitionRelation);
+            query.get(id, {
+                success: function (competition) {
+                    console.log(competition);
+                    $('#competition-view').append(competition);
+                },
+                error: function (error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                }
+            })
+        },
         getCompetition: function(competitionId) {
-            var Competition = Parse.Object.extend("Competition");
-            var query = new Parse.Query(Competition);
-            query.get(competitionId, {
-                success: function(competition){
+            var UserCompetitionRelation = Parse.Object.extend("UserCompetitionRelation");
 
+            var query = new Parse.Query(UserCompetitionRelation);
+            query.include('user');
+            query.include('competition');
+            query.equalTo("competition", {
+                "__type": "Pointer",
+                "className": "Competition",
+                "objectId": competitionId
+            });
+            query.find({
+                success: function(competition){
+                    if(competition.length == 0){
+                        console.log('internal');
+                        var Competition = Parse.Object.extend("Competition");
+                        var query = new Parse.Query(Competition);
+                        query.get(competitionId, {
+                            success: function (competition) {
+                                console.log(competition);
+                                $('#competition-view').append('<h3>' + competition.get('title') + '</h3>');
+                                $('#competition-view').append('<h4>' + 'Zero competitors here' + '</h4>');
+                            },
+                            error: function (error) {
+                                console.log("Error: " + error.code + " " + error.message);
+                            }
+                        });
+                    } else {
+
+                    var cmp = competition[0]['attributes']['competition'];
+                    console.log(competition);
+                    $('#competition-view').append('<h3>' + cmp.get('title') + '</h3>');
+                        var counter = 1,
+                            i;
+                    for(i = 0; i< competition.length; i++){
+                        var competitor = competition[i]['attributes']['user'];
+                        $('#competition-view').append('<p class="text-success">[' + (counter++) + '] ' + competitor.get('username') + ' -> ' + competitor.get('email') + '</p>');
+
+                    }
+                    }
                 },
                 error: function(error){
-                    alert("Error: " + error.code + " " + error.message);
+                    console.log("Error: " + error.code + " " + error.message);
                 }
             })
         }
