@@ -9,7 +9,6 @@ export default dataPersister => {
                 success: function(competitions) {
                     for (var i = 0; i < competitions.length; i++) {
                         var competition = competitions[i];
-                        console.log(competition);
                         $('#competitions-list').append(
                             '<div class="content-section-b">'+
                                 '<div class="container">'+
@@ -25,7 +24,8 @@ export default dataPersister => {
                                             '</p>'+
                                             '<p><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(competition.get('start')) + '</p>'+
                                             '<p><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(competition.get('end')) +'</p>' +
-                                            '<a href="#" class="btn btn-primary btn-lg">JOIN</a>'+
+                                            '<a href="#" class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ competition['id'] + '">JOIN</a>'+
+                                            '<a href="#" class="btn btn-info btn-lg pull-right competition-details" data-competition-details-id="'+ competition['id'] + '">Details</a>'+
                                             '</div>'+
 
                                         '<div class="col-lg-5 col-sm-pull-6  col-sm-6">'+
@@ -44,6 +44,18 @@ export default dataPersister => {
         },
         makePost: function() {
            // TODO
+        },
+        getCompetition: function(competitionId) {
+            var Competition = Parse.Object.extend("Competition");
+            var query = new Parse.Query(Competition);
+            query.get(competitionId, {
+                success: function(competition){
+
+                },
+                error: function(error){
+                    alert("Error: " + error.code + " " + error.message);
+                }
+            })
         }
     };
 

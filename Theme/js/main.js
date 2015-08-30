@@ -90,6 +90,25 @@ $('#competitions-btn').on('click', function() {
 	});
 });
 
+$('a').click(function() {
+	alert($);
+});
+
+$('[data-competition-id]').on('click', function(){
+	console.log(this);
+	//$.ajax({
+	//	url: './partials/competition.html',
+	//	contentType: 'text/plain',
+	//	method: 'GET',
+	//	success: function(data) {
+	//		$('#main-container').html(data);
+	//		dataPersister().getCometition(competitionId);
+	//		$('html, body').scrollTop($(target.attr('href')).offset().top);
+	//	}
+	//});
+
+});
+
 $('#post-submit').on('click', function() { //Click on submit button in chat. I can't fire this event!
     console.log('1');
 });
