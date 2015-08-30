@@ -74,3 +74,7 @@ $('#chat-btn').on('click', function() {
 		}
 	});
 });
+
+$('#post-submit').on('click', function() { //Click on submit button in chat. I can't fire this event!
+    console.log('1');
+});
