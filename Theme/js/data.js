@@ -23,8 +23,9 @@ export default dataPersister => {
                                             '<p class="lead">' +
                                                  competition.get('description') +
                                             '</p>'+
-                            '<br><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(competition.get('start')) +
-                            '<br><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(competition.get('end')) +
+                                            '<p><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(competition.get('start')) + '</p>'+
+                                            '<p><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(competition.get('end')) +'</p>' +
+                                            '<a href="#" class="btn btn-primary btn-lg">JOIN</a>'+
                                             '</div>'+
 
                                         '<div class="col-lg-5 col-sm-pull-6  col-sm-6">'+
