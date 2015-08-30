@@ -90,8 +90,8 @@ $('#competitions-btn').on('click', function() {
 	});
 });
 
-$('a').click(function() {
-	alert($);
+$('#main-container').on('click', '#competitions-list a', function() {
+	var competitionId = $(this).attr('data-competition-join-id');
 });
 
 $('[data-competition-id]').on('click', function(){
