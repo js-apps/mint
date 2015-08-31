@@ -25,16 +25,17 @@ export default userPosts => {
             var newPost = new Post();
             newPost.set('content', content);
 
-            //var $postResult = $('#post-result');
-            //$postResult.html('').css('display', '');
+            var $postResult = $('#post-result');
+            $postResult.html('').css('display', '');
 
             newPost.save({
                 success: function () {
-                    //$postResult.html('Post submitted').fadeOut(4000);
+                    $postResult.html('Post submitted').fadeOut(4000);
                     $('#post-content').val('');
-                    //getAllPosts();
-                }, error: function (err) {
-
+                    $('#post-list').append('<li>'+ newPost.get('content') +'</li>');
+                }
+                , error: function (err) {
+                    alert("Error: " + error.code + " " + error.message);
                 }
             });
         }

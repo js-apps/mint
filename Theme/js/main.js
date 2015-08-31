@@ -106,5 +106,5 @@ $('#main-container').on('click', '#competitions-list a[data-competition-details-
 });
 
 $('#main-container').on('click', '#post-submit',  function() {
-    console.log('1');
+    userPosts().makePost();
 });
