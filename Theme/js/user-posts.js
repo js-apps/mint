@@ -4,12 +4,14 @@ export default userPosts => {
             var Post = Parse.Object.extend("Post");
             var User = Parse.Object.extend("User");
             var query = new Parse.Query(Post);
-            query.include(User);
+            query.include('user');
             query.find({
                 success: function(posts) {
                     for (var i = 0; i < posts.length; i++) {
                         var post = posts[i];
-                        $('#post-list').append('<li>'+ post.get('content') +'</li>');
+                        var user = posts[i].get('user');
+                        var userName = user.get('username');
+                        $('#post-list').append('<li>'+ userName + ': ' + post.get('content') +'</li>');
                     }
                 },
                 error: function(error) {
@@ -22,6 +24,7 @@ export default userPosts => {
 
             var content = $('#post-content').val();
             var user = Parse.User.current();
+            var userName = user.get('username');
 
             var newPost = new Post();
             newPost.set('content', content);
@@ -34,7 +37,7 @@ export default userPosts => {
                 success: function () {
                     $postResult.html('Post submitted').fadeOut(4000);
                     $('#post-content').val('');
-                    $('#post-list').append('<li>'+ newPost.get('content') +'</li>');
+                    $('#post-list').append('<li>'+ userName + ': ' + newPost.get('content') +'</li>');
                 }
                 , error: function (err) {
                     alert("Error: " + error.code + " " + error.message);
