@@ -21,9 +21,11 @@ export default userPosts => {
             var Post = Parse.Object.extend("Post");
 
             var content = $('#post-content').val();
+            var user = Parse.User.current();
 
             var newPost = new Post();
             newPost.set('content', content);
+            newPost.set('user', user);
 
             var $postResult = $('#post-result');
             $postResult.html('').css('display', '');
