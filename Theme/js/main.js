@@ -105,6 +105,6 @@ $('#main-container').on('click', '#competitions-list a[data-competition-details-
 	});
 });
 
-$('#post-submit').on('click', function() { //Click on submit button in chat. I can't fire this event!
+$('#main-container').on('click', '#post-submit',  function() {
     console.log('1');
 });
