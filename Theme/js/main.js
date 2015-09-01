@@ -115,10 +115,6 @@ $(function() {
         userPosts().makePost();
     });
 
-    $(function() {
-    	app.run('#/home');
-    });
-/*
     $('#main-container').on('click', '#competitions-list a[data-competition-details-id]', function() {
         var competitionId = $(this).attr('data-competition-details-id');
         var target = $(this);
@@ -133,5 +129,8 @@ $(function() {
             }
         });
     });
-*/
+
+    $(function() {
+    	app.run('#/home');
+    });
 });
