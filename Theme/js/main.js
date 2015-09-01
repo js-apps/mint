@@ -124,7 +124,7 @@ $(function() {
             });
         });
 
-        this.get('/#/:name', function() {
+        this.get('/#/user/:name', function() {
             var searchedUser = this.params.name;
             var user;
 
