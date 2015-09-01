@@ -7,7 +7,7 @@ export default userButtons => {
 					.show();
 				$('#login-register-btn').hide();
 		        $('#current-user-btn')
-		            .attr('href', '#' + Parse.User.current().attributes.username)
+		            .attr('href', '#/' + Parse.User.current().attributes.username)
 		            .html(Parse.User.current().attributes.username)
 		            .show();
 		    } else {
