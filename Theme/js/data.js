@@ -24,8 +24,8 @@ export default dataPersister => {
                                             '</p>'+
                                             '<p><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(competition.get('start')) + '</p>'+
                                             '<p><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(competition.get('end')) +'</p>' +
-                                            '<a href="#" class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ competition['id'] + '">JOIN</a>'+
-                                            '<a href="#" class="btn btn-info btn-lg pull-right competition-details" data-competition-details-id="'+ competition['id'] + '">Details</a>'+
+                                            '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ competition['id'] + '">JOIN</button>'+
+                                            '<a href="/#/competitions/'+competition['id']+'" class="btn btn-info btn-lg pull-right competition-details" data-competition-details-id="'+ competition['id'] + '">Details</a>'+
                                             '</div>'+
 
                                         '<div class="col-lg-5 col-sm-pull-6  col-sm-6">'+
@@ -42,25 +42,40 @@ export default dataPersister => {
                 }
             });
         },
-        joinCompetition: function(competitionId) {
-            var UserCompetitionRelation = Parse.Object.extend("UserCompetitionRelation");
-
+        joinCompetition: function(competition) {
             var user = Parse.User.current();
 
+            var UserCompetitionRelation = Parse.Object.extend("UserCompetitionRelation");
+            var userCompetitionRelation = new UserCompetitionRelation();
+            userCompetitionRelation.set("user", user);
+            userCompetitionRelation.set("competition", competition);
 
-
-        },
-        getComeptitionById : function(id){
-            var query = new Parse.Query(UserCompetitionRelation);
-            query.get(id, {
-                success: function (competition) {
-                    console.log(competition);
-                    $('#competition-view').append(competition);
+            userCompetitionRelation.save(null, {
+                success: function(obj) {
+                    console.log("succesfully created obj" + obj.id);
                 },
-                error: function (error) {
-                    console.log("Error: " + error.code + " " + error.message);
+                error: function(gameScore, error) {
+                    // The save failed.
+                    console.log("failed to create obj");
                 }
-            })
+            });
+        },
+        getCompetitionObjectByCompetitionId : function(id){
+            var promise = new Promise(function(resolve, reject) {
+                var Competition = Parse.Object.extend("Competition");
+                var query = new Parse.Query(Competition);
+                query.equalTo("objectId", id);
+                query.find({
+                    success: function(result) {
+                        resolve(result[0]);
+                    },
+                    error: function(error) {
+                        reject("Error: " + error.code + " " + error.message);
+                    }
+                });
+            });
+
+            return promise;
         },
         getCompetition: function(competitionId) {
             var UserCompetitionRelation = Parse.Object.extend("UserCompetitionRelation");

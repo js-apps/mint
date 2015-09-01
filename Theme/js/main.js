@@ -156,6 +156,18 @@ $(function() {
         });
     });
 
+	$('#main-container').on('click', '#competitions-list button[data-competition-join-id]', function() {
+		var competitionId = $(this).attr('data-competition-join-id');
+		var target = $(this);
+		var competition;
+		dataPersister()
+			.getCompetitionObjectByCompetitionId(competitionId)
+			.then(function(result) {
+				competition = result;
+				dataPersister().joinCompetition(competition);
+			});
+	});
+
     $(function() {
         app.run('#/home');
     });
