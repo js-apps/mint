@@ -1,6 +1,6 @@
-export default user => {
-	var user = {
-		setUserButtons: function() {
+export default userButtons => {
+	var userButtons = {
+		set: function() {
 			if (Parse.User.current()) {
 				$('#logout-btn')
 					.html('Logout')
@@ -21,5 +21,5 @@ export default user => {
 		}
 	};
 
-	return user;
+	return userButtons;
 };
