@@ -5,8 +5,8 @@ export default validator => {
 		MAX_PASSWORD_LENGTH: 18,
 		MIN_PASSWORD_LENGTH: 6,
 		EMAIL_VALIDATION_REGEX: new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"),
-		USERNAME_REGEX: /^[a-z0-9_-]{3,16}$/,
-		PASSWORD_REGEX: /^[a-z0-9_-]{6,18}$/
+		USERNAME_REGEX: /^[a-zA-Z0-9_-]{3,16}$/,
+		PASSWORD_REGEX: /^[a-zA-Z0-9_-]{6,18}$/
 	};
 
 	var validator = {
