@@ -1,110 +1,137 @@
-import user from 'js/user-functionalities';
+import userButtons from 'js/user-buttons';
 import userPosts from 'js/user-posts';
 import dataPersister from 'js/data';
 
-user().setUserButtons();
+$(function() {
+    userButtons().set();
 
-$('#login-register-btn').on('click', function() {
-	$.ajax({
-	 	url: './partials/login-register.html',
-	 	contentType: 'text/plain',
-	 	method: 'GET',
-	 	success: function(data) {
-	 		$('#main-container').html(data);
-	 		$("html, body").animate({ scrollTop: 0 }, "slow");
-	 	}
-	});
+    var app = Sammy('#main-container', function() {
+    	this.get('/#/', function() {
+    		this.redirect('/#/home');
+    	});
 
-	$.getScript('js/login-register.js');
-});
+    	this.get('/#/about', function() {
+        	$.ajax({
+            	url: './partials/home.html',
+            	contentType: 'text/plain',
+            	method: 'GET',
+            	success: function(data) {
+               		$('#main-container').html(data);
+                	$('html, body').animate({
+                    	scrollTop: 0
+                	}, "slow");
+            	}
+        	});
+    	});
 
-$('#about-btn').on('click', function() {
-	var target = $(this);
-	$.ajax({
-	 	url: './partials/home.html',
-	 	contentType: 'text/plain',
-	 	method: 'GET',
-	 	success: function(data) {
-	 		$('#main-container').html(data);
-	 		$('html, body').scrollTop($(target.attr('href')).offset().top);
-	 	}
-	});
-});
+    	this.get('/#/home', function() {
+			$.ajax({
+            	url: './partials/home.html',
+            	contentType: 'text/plain',
+            	method: 'GET',
+            	success: function(data) {
+               		$('#main-container').html(data);
+                	$('html, body').animate({
+                    	scrollTop: 0
+                	}, "slow");
+            	}
+        	});
+    	});
 
-$('#services-btn').on('click', function() {
-	var target = $(this);
-	$.ajax({
-	 	url: './partials/home.html',
-	 	contentType: 'text/plain',
-	 	method: 'GET',
-	 	success: function(data) {
-	 		$('#main-container').html(data);
-	 		$('html, body').scrollTop($(target.attr('href')).offset().top);
-	 	}
-	});
-});
+    	this.get('/#/chat', function() {
+    		$.ajax({
+	            url: './partials/posts.html',
+	            contentType: 'text/plain',
+	            method: 'GET',
+	            success: function(data) {
+	                $('#main-container').html(data);
+	                userPosts().getAllPosts();
+	                $('html, body').animate({
+                    	scrollTop: 0
+                	}, "slow");
+	            }
+        	});
+    	});
 
-$('#contact-btn').on('click', function() {
-	var target = $(this);
-	$.ajax({
-	 	url: './partials/home.html',
-	 	contentType: 'text/plain',
-	 	method: 'GET',
-	 	success: function(data) {
-	 		$('#main-container').html(data);
-	 		$('html, body').scrollTop($(target.attr('href')).offset().top);
-	 	}
-	});
-});
+    	this.get('/#/competitions', function() {
+    		$.ajax({
+	            url: './partials/competitions.html',
+	            contentType: 'text/plain',
+	            method: 'GET',
+	            success: function(data) {
+	                $('#main-container').html(data);
+	                dataPersister().getAllCompetitions();
+	                $('html, body').animate({
+                    	scrollTop: 0
+                	}, "slow");
+	            }
+	        });
+    	});
 
-$('#logout-btn').on('click', function() {
-	Parse.User.logOut();
-	user().setUserButtons();
-});
+    	this.get('/#login', function() {
+    		this.redirect('/#/login');
+    	});
 
-$('#chat-btn').on('click', function() {
-	var target = $(this);
-	$.ajax({
-		url: './partials/posts.html',
-		contentType: 'text/plain',
-		method: 'GET',
-		success: function(data) {
-			$('#main-container').html(data);
-			userPosts().getAllPosts();
-			$('html, body').scrollTop($(target.attr('href')).offset().top);
-		}
-	});
-});
+    	this.get('/#/login', function() {
+    		$.ajax({
+	            url: './partials/login.html',
+	            contentType: 'text/plain',
+	            method: 'GET',
+	            success: function(data) {
+	                $('#main-container').html(data);
+	                $("html, body").animate({
+	                    scrollTop: 0
+	                }, "slow");
+	            }
+	        });
 
-$('#competitions-btn').on('click', function() {
-	var target = $(this);
-	$.ajax({
-		url: './partials/competitions.html',
-		contentType: 'text/plain',
-		method: 'GET',
-		success: function(data) {
-			$('#main-container').html(data);
-			dataPersister().getAllCompetitions();
-			$('html, body').scrollTop($(target.attr('href')).offset().top);
-		}
-	});
-});
+	        System.import('js/login');
+    	});
 
-$('#main-container').on('click', '#competitions-list a[data-competition-details-id]', function() {
-	var competitionId = $(this).attr('data-competition-details-id');
-	var target = $(this);
-	$.ajax({
-		url: './partials/competition.html',
-		contentType: 'text/plain',
-		method: 'GET',
-		success: function(data) {
-			$('#main-container').html(data);
-			dataPersister().getCompetition(competitionId);
-			//$('html, body').scrollTop($(target.attr('href')).offset().top);
-		}
-	});
-});
+    	this.get('#/logout', function() {
+    		Parse.User.logOut();
+        	userButtons().set();
+        	this.redirect('/#/home');
+    	});
 
-$('#main-container').on('click', '#post-submit',  function() {
-    userPosts().makePost();
+    	this.get('#/register', function() {
+    		$.ajax({
+	            url: './partials/register.html',
+	            contentType: 'text/plain',
+	            method: 'GET',
+	            success: function(data) {
+	                $('#main-container').html(data);
+	                $("html, body").animate({
+	                    scrollTop: 0
+	                }, "slow");
+	            }
+	        });
+
+	        System.import('js/register');
+    	});
+    });
+
+	$('#main-container').on('click', '#post-submit', function() {
+        userPosts().makePost();
+    });
+
+    $(function() {
+    	app.run('#/home');
+    });
+/*
+    $('#main-container').on('click', '#competitions-list a[data-competition-details-id]', function() {
+        var competitionId = $(this).attr('data-competition-details-id');
+        var target = $(this);
+        $.ajax({
+            url: './partials/competition.html',
+            contentType: 'text/plain',
+            method: 'GET',
+            success: function(data) {
+                $('#main-container').html(data);
+                dataPersister().getCompetition(competitionId);
+                //$('html, body').scrollTop($(target.attr('href')).offset().top);
+            }
+        });
+    });
+*/
 });
