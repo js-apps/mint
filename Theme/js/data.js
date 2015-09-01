@@ -123,7 +123,7 @@ export default dataPersister => {
                                 );
                             },
                             error: function (error) {
-                                console.log("Error: " + error.code + " " + error.message);
+                                //console.log("Error: " + error.code + " " + error.message);
                             }
                         });
                     } else {

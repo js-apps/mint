@@ -149,6 +149,22 @@ $(function() {
                 }
             });
         });
+
+        this.get('#/competitions/add', function() {
+            console.log('in route');
+            $.ajax({
+                url: './partials/add-competition.html',
+                contentType: 'text/plain',
+                method: 'GET',
+                success: function(data) {
+                    console.log(data);
+                    $('#main-container').html(data);
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, "slow");
+                }
+            });
+        });
     });
 
     $('#main-container').on('click', '#post-submit', function() {
