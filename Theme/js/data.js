@@ -165,6 +165,24 @@ export default dataPersister => {
                     console.log("Error: " + error.code + " " + error.message);
                 }
             })
+        },
+        getUserByName: function(username) {
+            var promise = new Promise(function(resolve, reject) {
+                var Users = Parse.Object.extend('User');
+                var query = new Parse.Query(Users);
+
+                query.equalTo('username', username);
+                query.find({
+                    success: function(results) {
+                        resolve(results[0]);
+                    },
+                    error: function(error) {
+                        reject(error);
+                    }
+                });
+            });
+
+            return promise;
         }
     };
 
