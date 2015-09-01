@@ -135,38 +135,37 @@ $(function() {
                     });
                 });
         });
+
+        this.get('#/competitions/:id', function() {
+            var competitionId = this.params.id;
+            $.ajax({
+                url: './partials/competition.html',
+                contentType: 'text/plain',
+                method: 'GET',
+                success: function(data) {
+                    $('#main-container').html(data);
+                    dataPersister().getCompetition(competitionId);
+                    //$('html, body').scrollTop($(target.attr('href')).offset().top);
+                }
+            });
+        });
     });
 
     $('#main-container').on('click', '#post-submit', function() {
         userPosts().makePost();
     });
 
-    $('#main-container').on('click', '#competitions-list a[data-competition-details-id]', function() {
-        var competitionId = $(this).attr('data-competition-details-id');
+    $('#main-container').on('click', '#competitions-list button[data-competition-join-id]', function() {
+        var competitionId = $(this).attr('data-competition-join-id');
         var target = $(this);
-        $.ajax({
-            url: './partials/competition.html',
-            contentType: 'text/plain',
-            method: 'GET',
-            success: function(data) {
-                $('#main-container').html(data);
-                dataPersister().getCompetition(competitionId);
-                //$('html, body').scrollTop($(target.attr('href')).offset().top);
-            }
-        });
+        var competition;
+        dataPersister()
+            .getCompetitionObjectByCompetitionId(competitionId)
+            .then(function(result) {
+                competition = result;
+                dataPersister().joinCompetition(competition);
+            });
     });
-
-	$('#main-container').on('click', '#competitions-list button[data-competition-join-id]', function() {
-		var competitionId = $(this).attr('data-competition-join-id');
-		var target = $(this);
-		var competition;
-		dataPersister()
-			.getCompetitionObjectByCompetitionId(competitionId)
-			.then(function(result) {
-				competition = result;
-				dataPersister().joinCompetition(competition);
-			});
-	});
 
     $(function() {
         app.run('#/home');
