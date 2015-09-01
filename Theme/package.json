@@ -2,6 +2,7 @@
   "jspm": {
     "directories": {},
     "dependencies": {
+      "handlebars": "github:components/handlebars.js@^4.0.0",
       "sammy": "npm:sammy@^0.7.6"
     },
     "devDependencies": {

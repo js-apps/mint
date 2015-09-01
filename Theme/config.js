@@ -18,6 +18,7 @@ System.config({
     "babel": "npm:babel-core@5.8.23",
     "babel-runtime": "npm:babel-runtime@5.8.20",
     "core-js": "npm:core-js@0.9.18",
+    "handlebars": "github:components/handlebars.js@4.0.0",
     "sammy": "npm:sammy@0.7.6",
     "github:jspm/nodelibs-buffer@0.1.0": {
       "buffer": "npm:buffer@3.4.3"
