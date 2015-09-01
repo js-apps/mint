@@ -117,6 +117,9 @@ $(function() {
                 method: 'GET',
                 success: function(data) {
                     $('#main-container').html(data);
+                    $( "#competitionStart" ).datepicker();
+                    $( "#competitionEnd" ).datepicker();
+
                     $("html, body").animate({
                         scrollTop: 0
                     }, "slow");
@@ -162,6 +165,8 @@ $(function() {
             });
         });
     });
+
+
 
     $('#main-container').on('click', '#post-submit', function() {
         userPosts().makePost();
