@@ -4,9 +4,11 @@ import userButtons from 'js/user-buttons';
 $(function() {
     function registerUser(username, password, email) {
         var newUser = new Parse.User();
-        newUser.set("username", username);
-        newUser.set("password", password);
-        newUser.set("email", email);
+        newUser.set('username', username);
+        newUser.set('password', password);
+        newUser.set('email', email);
+        newUser.set('info', ' ');
+        newUser.set('additionalInfo', ' ');
 
         newUser.signUp(null, {
             success: function() {
