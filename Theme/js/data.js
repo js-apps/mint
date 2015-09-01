@@ -91,12 +91,10 @@ export default dataPersister => {
             query.find({
                 success: function(competition){
                     if(competition.length == 0){
-                        console.log('internal');
                         var Competition = Parse.Object.extend("Competition");
                         var query = new Parse.Query(Competition);
                         query.get(competitionId, {
                             success: function (competition) {
-                                console.log(competition);
                                 $('#competition-view').append(
                                 '<div class="content-section-b">'+
                                 '<div class="container">'+
@@ -115,7 +113,7 @@ export default dataPersister => {
                                 '</p>'+
                                 '<p><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(competition.get('start')) + '</p>'+
                                 '<p><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(competition.get('end')) +'</p>' +
-                                '<a href="#" class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ competition['id'] + '">Be the first to JOIN</a>'+
+                                '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ competition['id'] + '">Be the first to JOIN</button>'+
                                 '</div>'+
                                 '</div>'+
                                 '</div>'+
@@ -129,7 +127,6 @@ export default dataPersister => {
                     } else {
 
                     var cmp = competition[0]['attributes']['competition'];
-                    console.log(competition);
                     $('#competition-view').append(
                         '<div class="content-section-b">'+
                         '<div class="container">'+
@@ -148,7 +145,7 @@ export default dataPersister => {
                         '</p>'+
                         '<p><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(cmp.get('start')) + '</p>'+
                         '<p><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(cmp.get('end')) +'</p>' +
-                        '<a href="#" class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ cmp['id'] + '">JOIN</a>'+
+                        '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ cmp['id'] + '">JOIN</button>'+
                         '</div>'+
                         '</div>'+
                         '</div>'+
