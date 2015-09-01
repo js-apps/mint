@@ -42,8 +42,13 @@ export default dataPersister => {
                 }
             });
         },
-        makePost: function() {
-           // TODO
+        joinCompetition: function(competitionId) {
+            var UserCompetitionRelation = Parse.Object.extend("UserCompetitionRelation");
+
+            var user = Parse.User.current();
+
+
+
         },
         getComeptitionById : function(id){
             var query = new Parse.Query(UserCompetitionRelation);
