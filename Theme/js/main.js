@@ -1,9 +1,5 @@
-import userButtons from 'js/user-buttons';
-import userPosts from 'js/user-posts';
-import dataPersister from 'js/data';
-
 $(function() {
-    userButtons().set();
+    userButtons.set();
 
     var app = Sammy('#main-container', function() {
         this.get('/#/', function() {
@@ -11,61 +7,58 @@ $(function() {
         });
 
         this.get('/#/about', function() {
-            $.ajax({
-                url: './partials/home.html',
-                contentType: 'text/plain',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-container').html(data);
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, "slow");
-                }
-            });
+            loader
+                .getPartial('home')
+                .then(function(data) {
+                    viewer.updateUI(data);
+                });
         });
 
         this.get('/#/home', function() {
-            $.ajax({
-                url: './partials/home.html',
-                contentType: 'text/plain',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-container').html(data);
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, "slow");
-                }
-            });
+            loader
+                .getPartial('home')
+                .then(function(data) {
+                    viewer.updateUI(data);
+                });
         });
 
         this.get('/#/chat', function() {
-            $.ajax({
-                url: './partials/posts.html',
-                contentType: 'text/plain',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-container').html(data);
-                    userPosts().getAllPosts();
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, "slow");
-                }
-            });
+            loader
+                .getScript('user-posts')
+                .then(function() {
+                    return loader.getPartial('posts');
+                })
+                .then(function(data) {
+                    return viewer.updateUI(data);
+                })
+                .then(function() {
+                    return userPosts.getAllPosts();
+                })
+                .then(function() {
+                    $('#main-container').on('click', '#post-submit', function() {
+                        userPosts.makePost();
+                    });
+                })
         });
 
         this.get('/#/competitions', function() {
-            $.ajax({
-                url: './partials/competitions.html',
-                contentType: 'text/plain',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-container').html(data);
-                    dataPersister().getAllCompetitions();
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, "slow");
-                }
-            });
+            loader
+                .getScript('helper')
+                .then(function() {
+                    return loader.getScript('join');
+                })
+                .then(function() {
+                    return loader.getScript('data');
+                })
+                .then(function() {
+                    return loader.getPartial('competitions');
+                })
+                .then(function(data) {
+                    return viewer.updateUI(data);
+                })
+                .then(function() {
+                    dataPersister.getAllCompetitions();
+                });
         });
 
         this.get('/#login', function() {
@@ -73,115 +66,106 @@ $(function() {
         });
 
         this.get('/#/login', function() {
-            $.ajax({
-                url: './partials/login.html',
-                contentType: 'text/plain',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-container').html(data);
-                    $("html, body").animate({
-                        scrollTop: 0
-                    }, "slow");
-                }
-            });
-
-            System.import('js/login');
+            loader
+                .getScript('login')
+                .then(function() {
+                    return loader.getPartial('login');
+                })
+                .then(function(data) {
+                    viewer.updateUI(data);
+                });
         });
 
         this.get('/#/logout', function() {
             Parse.User.logOut();
-            userButtons().set();
+            userButtons.set();
             this.redirect('/#/home');
         });
 
         this.get('/#/register', function() {
-            $.ajax({
-                url: './partials/register.html',
-                contentType: 'text/plain',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-container').html(data);
-                    $("html, body").animate({
-                        scrollTop: 0
-                    }, "slow");
-
-                    System.import('js/register');
-                }
-            });
+            loader
+                .getScript('validator')
+                .then(function() {
+                    return loader.getScript('register');
+                })
+                .then(function() {
+                    return loader.getPartial('register');
+                })
+                .then(function(data) {
+                    viewer.updateUI(data);
+                })
         });
 
         this.get('/#/competitions/add', function() {
-            $.ajax({
-                url: './partials/add-competition.html',
-                contentType: 'text/plain',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-container').html(data);
-                    $( "#competitionStart" ).datepicker();
-                    $( "#competitionEnd" ).datepicker();
-
-                    $("html, body").animate({
-                        scrollTop: 0
-                    }, "slow");
-                }
-            });
+            loader
+                .getPartial('add-competition')
+                .then(function(data) {
+                    return viewer.updateUI(data);
+                })
+                .then(function() {
+                    $("#competitionStart").datepicker();
+                    $("#competitionEnd").datepicker();
+                })
         });
 
         this.get('/#/user/:name', function() {
             var searchedUser = this.params.name;
             var user;
 
-            dataPersister()
-                .getUserByName(searchedUser)
+            loader
+                .getScript('helper')
+                .then(function() {
+                    return loader.getScript('data');
+                })
+                .then(function() {
+                    return dataPersister.getUserByName(searchedUser);
+                })
                 .then(function(data) {
-                    user = {
-                        name: data.get('username'),
-                        email: data.get('email'),
-                        info: data.get('info'),
-                        additionalInfo: data.get('additionalInfo')
-                    };
+                    var promise = new Promise(function(resolve, reject) {
+                        user = {
+                            name: data.get('username'),
+                            email: data.get('email'),
+                            info: data.get('info'),
+                            additionalInfo: data.get('additionalInfo')
+                        };
 
-                    $.getScript('js/templates.js', function() {
-                        templates
-                            .get('user-profile')
-                            .then(function(data) {
-                                $('#main-container').html(data(user));
-                            });
+                        resolve(user);
                     });
-                });
+
+                    return promise;
+                })
+                .then(function(data) {
+                    return loader.getTemplate('user-profile', data);
+                })
+                .then(function(templateWithData) {
+                    return viewer.parseTemplate(templateWithData);
+                })
+                .then(function(data) {
+                    viewer.updateUI(data);
+                })
         });
 
         this.get('/#/competitions/:id', function() {
             var competitionId = this.params.id;
-            $.ajax({
-                url: './partials/competition.html',
-                contentType: 'text/plain',
-                method: 'GET',
-                success: function(data) {
-                    $('#main-container').html(data);
-                    dataPersister().getCompetition(competitionId);
-                    //$('html, body').scrollTop($(target.attr('href')).offset().top);
-                }
-            });
+
+            loader
+                .getScript('helper')
+                .then(function() {
+                    return loader.getScript('data');
+                })
+                .then(function() {
+                    return loader.getScript('join');
+                })
+                .then(function() {
+                    return loader.getPartial('competition');
+                })
+                .then(function(data) {
+                    return viewer.updateUI(data);
+                })
+                .then(function() {
+                    dataPersister.getCompetition(competitionId);
+                })
         });
-    });
-
-
-
-    $('#main-container').on('click', '#post-submit', function() {
-        userPosts().makePost();
-    });
-
-    $('#main-container').on('click', 'button[data-competition-join-id]', function() {
-        var competitionId = $(this).attr('data-competition-join-id');
-        var target = $(this);
-        var competition;
-        dataPersister()
-            .getCompetitionObjectByCompetitionId(competitionId)
-            .then(function(result) {
-                competition = result;
-                dataPersister().joinCompetition(competition);
-            });
     });
 
     $(function() {
