@@ -1,14 +1,30 @@
 {
-  "jspm": {
-    "directories": {},
-    "dependencies": {
-      "handlebars": "github:components/handlebars.js@^4.0.0",
-      "sammy": "npm:sammy@^0.7.6"
-    },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.1.13",
-      "babel-runtime": "npm:babel-runtime@^5.1.13",
-      "core-js": "npm:core-js@^0.9.4"
-    }
+  "name": "competitionninja",
+  "version": "1.0.0",
+  "description": "[Landing Page](http://startbootstrap.com/template-overviews/landing-page/) is a multipurpose landing page template for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/).",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/js-apps/mint.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/js-apps/mint/issues"
+  },
+  "homepage": "https://github.com/js-apps/mint#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "handlebars": "^4.0.0",
+    "jquery": "^2.1.4",
+    "jquery-ui": "^1.10.5",
+    "parse": "^1.5.0",
+    "sammy": "^0.7.6"
   }
 }
