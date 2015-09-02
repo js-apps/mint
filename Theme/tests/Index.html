@@ -3,14 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>Tests</title>
-    <link rel="stylesheet" media="all" href="../node_modules/mocha/mocha.css">
+    <link rel="stylesheet" media="all" href="node_modules/mocha/mocha.css">
 </head>
 <body>
 <div id="mocha"><p><a href="../">Index</a></p></div>
 <div id="messages"></div>
 <div id="fixtures"></div>
-<script src="../node_modules/mocha/mocha.js"></script>
-<script src="../node_modules/chai/chai.js"></script>
+<script src="node_modules/mocha/mocha.js"></script>
+<script src="node_modules/chai/chai.js"></script>
+<script src="node_modules/sinon/pkg/sinon-1.16.1.js"></script>
+<script src="node_modules/sinon-chai/lib/sinon-chai.js"></script>
 <script src="../js/login.js"></script>
 <script>mocha.setup('bdd')</script>
 <script src="login_test.js"></script>
