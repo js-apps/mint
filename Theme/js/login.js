@@ -1,10 +1,8 @@
-import userButtons from 'js/user-buttons';
-
 $(function() {
     function tryToLogUserIn(username, password) {
         Parse.User.logIn(username, password, {
             success: function() {
-                userButtons().set();
+                userButtons.set();
                 window.location.href = "/#/home";
             },
             error: function(triedUser, error) {

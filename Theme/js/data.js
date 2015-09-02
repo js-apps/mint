@@ -1,6 +1,4 @@
-import helper from 'js/helper';
-
-export default dataPersister => {
+var dataPersister = (function() {
     var dataPersister = {
         getAllCompetitions: function() {
             var Competition = Parse.Object.extend("Competition");
@@ -10,29 +8,29 @@ export default dataPersister => {
                     for (var i = 0; i < competitions.length; i++) {
                         var competition = competitions[i];
                         $('#competitions-list').append(
-                            '<div class="content-section-b">'+
-                                '<div class="container">'+
-                                    '<div class="row">'+
-                                        '<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">'+
-                                            '<hr class="section-heading-spacer">'+
-                                                '<div class="clearfix"></div>'+
-                                                '<h2 class="section-heading">' +  competition.get('title') +
+                            '<div class="content-section-b">' +
+                            '<div class="container">' +
+                            '<div class="row">' +
+                            '<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">' +
+                            '<hr class="section-heading-spacer">' +
+                            '<div class="clearfix"></div>' +
+                            '<h2 class="section-heading">' + competition.get('title') +
 
-                                                '</h2>'+
-                                            '<p class="lead">' +
-                                                 competition.get('description') +
-                                            '</p>'+
-                                            '<p><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(competition.get('start')) + '</p>'+
-                                            '<p><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(competition.get('end')) +'</p>' +
-                                            '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ competition['id'] + '">JOIN</button>'+
-                                            '<a href="/#/competitions/'+competition['id']+'" class="btn btn-info btn-lg pull-right competition-details" data-competition-details-id="'+ competition['id'] + '">Details</a>'+
-                                            '</div>'+
+                            '</h2>' +
+                            '<p class="lead">' +
+                            competition.get('description') +
+                            '</p>' +
+                            '<p><span class="text-primary">' + 'Start: ' + '</span>' + helper.formatDate(competition.get('start')) + '</p>' +
+                            '<p><span class="text-primary">' + 'End: ' + '</span>' + helper.formatDate(competition.get('end')) + '</p>' +
+                            '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="' + competition['id'] + '">JOIN</button>' +
+                            '<a href="/#/competitions/' + competition['id'] + '" class="btn btn-info btn-lg pull-right competition-details" data-competition-details-id="' + competition['id'] + '">Details</a>' +
+                            '</div>' +
 
-                                        '<div class="col-lg-5 col-sm-pull-6  col-sm-6">'+
-                                            '<img class="img-responsive" src="img/dog.png" alt="">'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
+                            '<div class="col-lg-5 col-sm-pull-6  col-sm-6">' +
+                            '<img class="img-responsive" src="img/dog.png" alt="">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
                             '</div>'
                         );
                     }
@@ -60,7 +58,7 @@ export default dataPersister => {
                 }
             });
         },
-        getCompetitionObjectByCompetitionId : function(id){
+        getCompetitionObjectByCompetitionId: function(id) {
             var promise = new Promise(function(resolve, reject) {
                 var Competition = Parse.Object.extend("Competition");
                 var query = new Parse.Query(Competition);
@@ -89,91 +87,91 @@ export default dataPersister => {
                 "objectId": competitionId
             });
             query.find({
-                success: function(competition){
-                    if(competition.length == 0){
+                success: function(competition) {
+                    if (competition.length == 0) {
                         var Competition = Parse.Object.extend("Competition");
                         var query = new Parse.Query(Competition);
                         query.get(competitionId, {
-                            success: function (competition) {
+                            success: function(competition) {
                                 $('#competition-view').append(
-                                '<div class="content-section-b">'+
-                                '<div class="container">'+
-                                '<div class="row">'+
-                                '<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">'+
-                                '<img class="img-responsive" src="img/dog.png" alt="">'+
-                                '</div>'+
-                                '<div class="col-lg-5 col-sm-pull-6  col-sm-6">'+
-                                '<div class="clearfix"></div>'+
-                                '<h2 class="section-heading">' +  competition.get('title') +
-                                '</h2>'+
-                                '<hr class="section-heading-spacer">'+
-                                '<div class="clearfix"></div>'+
-                                '<p class="lead">' +
-                                competition.get('description') +
-                                '</p>'+
-                                '<p><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(competition.get('start')) + '</p>'+
-                                '<p><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(competition.get('end')) +'</p>' +
-                                '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ competition['id'] + '">Be the first to JOIN</button>'+
-                                '</div>'+
-                                '</div>'+
-                                '</div>'+
-                                '</div>'
+                                    '<div class="content-section-b">' +
+                                    '<div class="container">' +
+                                    '<div class="row">' +
+                                    '<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">' +
+                                    '<img class="img-responsive" src="img/dog.png" alt="">' +
+                                    '</div>' +
+                                    '<div class="col-lg-5 col-sm-pull-6  col-sm-6">' +
+                                    '<div class="clearfix"></div>' +
+                                    '<h2 class="section-heading">' + competition.get('title') +
+                                    '</h2>' +
+                                    '<hr class="section-heading-spacer">' +
+                                    '<div class="clearfix"></div>' +
+                                    '<p class="lead">' +
+                                    competition.get('description') +
+                                    '</p>' +
+                                    '<p><span class="text-primary">' + 'Start: ' + '</span>' + helper.formatDate(competition.get('start')) + '</p>' +
+                                    '<p><span class="text-primary">' + 'End: ' + '</span>' + helper.formatDate(competition.get('end')) + '</p>' +
+                                    '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="' + competition['id'] + '">Be the first to JOIN</button>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
                                 );
                             },
-                            error: function (error) {
+                            error: function(error) {
                                 //console.log("Error: " + error.code + " " + error.message);
                             }
                         });
                     } else {
 
-                    var cmp = competition[0]['attributes']['competition'];
-                    $('#competition-view').append(
-                        '<div class="content-section-b">'+
-                        '<div class="container">'+
-                        '<div class="row">'+
-                        '<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">'+
-                        '<img class="img-responsive" src="img/dog.png" alt="">'+
-                        '</div>'+
-                        '<div class="col-lg-5 col-sm-pull-6  col-sm-6">'+
-                        '<div class="clearfix"></div>'+
-                        '<h2 class="section-heading">' +  cmp.get('title') +
-                        '</h2>'+
-                        '<hr class="section-heading-spacer">'+
-                        '<div class="clearfix"></div>'+
-                        '<p class="lead">' +
-                        cmp.get('description') +
-                        '</p>'+
-                        '<p><span class="text-primary">'+'Start: ' + '</span>' + helper().formatDate(cmp.get('start')) + '</p>'+
-                        '<p><span class="text-primary">'+'End: ' + '</span>' + helper().formatDate(cmp.get('end')) +'</p>' +
-                        '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="'+ cmp['id'] + '">JOIN</button>'+
-                        '</div>'+
-                        '</div>'+
-                        '</div>'+
-                        '</div>'
-                    );
+                        var cmp = competition[0]['attributes']['competition'];
+                        $('#competition-view').append(
+                            '<div class="content-section-b">' +
+                            '<div class="container">' +
+                            '<div class="row">' +
+                            '<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">' +
+                            '<img class="img-responsive" src="img/dog.png" alt="">' +
+                            '</div>' +
+                            '<div class="col-lg-5 col-sm-pull-6  col-sm-6">' +
+                            '<div class="clearfix"></div>' +
+                            '<h2 class="section-heading">' + cmp.get('title') +
+                            '</h2>' +
+                            '<hr class="section-heading-spacer">' +
+                            '<div class="clearfix"></div>' +
+                            '<p class="lead">' +
+                            cmp.get('description') +
+                            '</p>' +
+                            '<p><span class="text-primary">' + 'Start: ' + '</span>' + helper.formatDate(cmp.get('start')) + '</p>' +
+                            '<p><span class="text-primary">' + 'End: ' + '</span>' + helper.formatDate(cmp.get('end')) + '</p>' +
+                            '<button class="btn btn-success btn-lg competition-join" data-competition-join-id="' + cmp['id'] + '">JOIN</button>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                        );
 
-                        $('#competition-view').append('<h3>Competitors</h3>'+
-                            '<hr class="section-heading-spacer">'+
-                        '<table class="table table-striped table-hover " id="competition-table">'+
-                        '<thead>'+
-                        '<tr>'+
-                        '<th>#</th>'+
-                        '<th>Username</th>'+
-                        '<th>Email</th>'+
-                        '</tr>'+
-                        '</thead>'+
-                        '<tbody>');
+                        $('#competition-view').append('<h3>Competitors</h3>' +
+                            '<hr class="section-heading-spacer">' +
+                            '<table class="table table-striped table-hover " id="competition-table">' +
+                            '<thead>' +
+                            '<tr>' +
+                            '<th>#</th>' +
+                            '<th>Username</th>' +
+                            '<th>Email</th>' +
+                            '</tr>' +
+                            '</thead>' +
+                            '<tbody>');
 
                         var counter = 1,
                             i;
-                    for(i = 0; i< competition.length; i++){
-                        var competitor = competition[i]['attributes']['user'];
-                        $('#competition-table').append('<tr><td>' + (counter++) + '</td><td>' + competitor.get('username') + '</td><td><a href="mailto:'+ competitor.get('email') +'?Subject=Hello" target="_top">' + competitor.get('email') + '</a></td></tr>');
-                    }
+                        for (i = 0; i < competition.length; i++) {
+                            var competitor = competition[i]['attributes']['user'];
+                            $('#competition-table').append('<tr><td>' + (counter++) + '</td><td>' + competitor.get('username') + '</td><td><a href="mailto:' + competitor.get('email') + '?Subject=Hello" target="_top">' + competitor.get('email') + '</a></td></tr>');
+                        }
                         $('#competition-view').append('</tbody></table>');
                     }
                 },
-                error: function(error){
+                error: function(error) {
                     console.log("Error: " + error.code + " " + error.message);
                 }
             })
@@ -199,4 +197,4 @@ export default dataPersister => {
     };
 
     return dataPersister;
-};
+}());

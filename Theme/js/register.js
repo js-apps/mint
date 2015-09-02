@@ -1,6 +1,3 @@
-import validator from 'js/validator';
-import userButtons from 'js/user-buttons';
-
 $(function() {
     function registerUser(username, password, email) {
         var newUser = new Parse.User();
@@ -12,7 +9,7 @@ $(function() {
 
         newUser.signUp(null, {
             success: function() {
-                userButtons().set();
+                userButtons.set();
                 window.location.href = "/#/home";
             },
             error: function(newUser, error) {
@@ -24,7 +21,7 @@ $(function() {
 
     $('#main-container').on('input', '#username-reg', function(ev) {
         var target = ev.target;
-        var usernameValidationResult = validator().validateUsername(target.value);
+        var usernameValidationResult = validator.validateUsername(target.value);
 
         if (usernameValidationResult.isValid) {
             $(target).parent().removeClass('has-error').addClass('has-success');
@@ -37,7 +34,7 @@ $(function() {
 
     $('#main-container').on('input', '#password-reg', function(ev) {
         var target = ev.target;
-        var passwordValidationResult = validator().validatePassword(target.value);
+        var passwordValidationResult = validator.validatePassword(target.value);
 
         if (passwordValidationResult.isValid) {
             $(target).parent().removeClass('has-error').addClass('has-success');
@@ -54,7 +51,7 @@ $(function() {
 
     $('#main-container').on('input', '#confirm-password-reg', function(ev) {
         var target = ev.target;
-        var passwordMatchValidationResult = validator().validateMatchingPasswords($('#password-reg').val(), target.value);
+        var passwordMatchValidationResult = validator.validateMatchingPasswords($('#password-reg').val(), target.value);
 
         if (passwordMatchValidationResult.isValid) {
             $(target).parent().removeClass('has-error').addClass('has-success');
@@ -67,7 +64,7 @@ $(function() {
 
     $('#main-container').on('input', '#email-reg', function(ev) {
         var target = ev.target;
-        var emailValidationResult = validator().validateEmail(target.value);
+        var emailValidationResult = validator.validateEmail(target.value);
 
         if (emailValidationResult.isValid) {
             $(target).parent().removeClass('has-error').addClass('has-success');
@@ -84,10 +81,10 @@ $(function() {
         var passwordConfirm = $('#confirm-password-reg').val();
         var email = $('#email-reg').val();
 
-        var usernameValidationResult = validator().validateUsername(username);
-        var passwordValidationResult = validator().validatePassword(password);
-        var passwordMatchValidationResult = validator().validateMatchingPasswords(password, passwordConfirm);
-        var emailValidationResult = validator().validateEmail(email);
+        var usernameValidationResult = validator.validateUsername(username);
+        var passwordValidationResult = validator.validatePassword(password);
+        var passwordMatchValidationResult = validator.validateMatchingPasswords(password, passwordConfirm);
+        var emailValidationResult = validator.validateEmail(email);
 
         var usernameIsValid = usernameValidationResult.isValid;
         var passwordIsValid = passwordValidationResult.isValid;

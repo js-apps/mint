@@ -1,4 +1,4 @@
-export default validator => {
+var validator = (function() {
 	var CONSTANTS = {
 		MAX_USERNAME_LENGTH: 16,
 		MIN_USERNAME_LENGTH: 3,
@@ -69,4 +69,4 @@ export default validator => {
 	};
 
 	return validator;
-};
+}());

@@ -1,23 +1,30 @@
-export default userPosts => {
+var userPosts = (function() {
     var userPosts = {
         getAllPosts: function() {
-            var Post = Parse.Object.extend("Post");
-            var User = Parse.Object.extend("User");
-            var query = new Parse.Query(Post);
-            query.include('user');
-            query.find({
-                success: function(posts) {
-                    for (var i = 0; i < posts.length; i++) {
-                        var post = posts[i];
-                        var user = posts[i].get('user');
-                        var userName = user.get('username');
-                        $('#post-list').append('<li>'+ userName + ': ' + post.get('content') +'</li>');
+            var promise = new Promise(function(resolve, reject) {
+                var Post = Parse.Object.extend("Post");
+                var User = Parse.Object.extend("User");
+                var query = new Parse.Query(Post);
+                query.include('user');
+                query.find({
+                    success: function(posts) {
+                        for (var i = 0; i < posts.length; i++) {
+                            var post = posts[i];
+                            var user = posts[i].get('user');
+                            var userName = user.get('username');
+                            $('#post-list').append('<li>' + userName + ': ' + post.get('content') + '</li>');
+                        }
+
+                        resolve();
+                    },
+                    error: function(error) {
+                        alert("Error: " + error.code + " " + error.message);
+                        reject();
                     }
-                },
-                error: function(error) {
-                    alert("Error: " + error.code + " " + error.message);
-                }
+                });
             });
+
+            return promise;
         },
         makePost: function() {
             var Post = Parse.Object.extend("Post");
@@ -34,12 +41,12 @@ export default userPosts => {
             $postResult.html('').css('display', '');
 
             newPost.save({
-                success: function () {
+                success: function() {
                     $postResult.html('Post submitted').fadeOut(4000);
                     $('#post-content').val('');
-                    $('#post-list').append('<li>'+ userName + ': ' + newPost.get('content') +'</li>');
-                }
-                , error: function (err) {
+                    $('#post-list').append('<li>' + userName + ': ' + newPost.get('content') + '</li>');
+                },
+                error: function(err) {
                     alert("Error: " + error.code + " " + error.message);
                 }
             });
@@ -47,4 +54,4 @@ export default userPosts => {
     };
 
     return userPosts;
-}
+}());
