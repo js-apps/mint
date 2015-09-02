@@ -106,6 +106,19 @@ $(function() {
                     $("#competitionStart").datepicker();
                     $("#competitionEnd").datepicker();
                 })
+                .then(function(){
+                    // get data from competition add
+                    // validateData()
+
+                    // addNewCompetition {
+                    // title
+                    // description
+                    // start
+                    // end
+                    // }
+                    // pass it to dateParser().addNewCompetition()
+                    // goTo '/#/competitions
+                })
         });
 
         this.get('/#/user/:name', function() {

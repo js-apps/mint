@@ -176,6 +176,29 @@ var dataPersister = (function() {
                 }
             })
         },
+        addNewCompetition:function(title, description, dateStart, dateEnd){
+            var promise = new Promise(function(resolve, reject) {
+                var Competition = Parse.Object.extend('Competition');
+                var competition = new Competition();
+
+                competition.set("title", title);
+                competition.set("description", description);
+                competition.set("start", dateStart);
+                competition.set("end", dateEnd);
+
+                query.save(null, {
+                    success: function(competition) {
+                        console.log(competition);
+                        alert('New object created with objectId: ' + competition.id);
+                    },
+                    error: function(error) {
+                        reject(error);
+                    }
+                });
+            });
+
+            return promise;
+        },
         getUserByName: function(username) {
             var promise = new Promise(function(resolve, reject) {
                 var Users = Parse.Object.extend('User');
