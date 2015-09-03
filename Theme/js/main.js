@@ -1,6 +1,6 @@
 $(function() {
     userButtons.set();
-    loader.attachEventHandlers();
+    loader.getScript('events');
 
     var app = Sammy('#main-container', function() {
         this.get('/#/', function() {
