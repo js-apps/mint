@@ -43,7 +43,7 @@ var loader = (function() {
 
             return promise;
         }
-    }
+    };
 
     return loader;
 }());

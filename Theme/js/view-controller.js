@@ -8,7 +8,7 @@ var viewer = (function() {
                 }, "slow");
 
                 resolve();
-            })
+            });
 
             return promise;
         },
@@ -19,11 +19,11 @@ var viewer = (function() {
                 var parsedTemplate = template(data);
 
                 resolve(parsedTemplate);
-            })
+            });
 
             return promise;
         }
-    }
+    };
 
     return viewer;
 }());

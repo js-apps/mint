@@ -10,4 +10,4 @@ $(function() {
                 dataPersister.joinCompetition(competition);
             });
     });
-})
+});
