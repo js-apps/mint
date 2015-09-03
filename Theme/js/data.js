@@ -174,7 +174,7 @@ var dataPersister = (function() {
                 error: function(error) {
                     console.log("Error: " + error.code + " " + error.message);
                 }
-            })
+            });
         },
         addNewCompetition:function(title, description, dateStart, dateEnd){
             var promise = new Promise(function(resolve, reject) {
@@ -186,10 +186,9 @@ var dataPersister = (function() {
                 competition.set("start", dateStart);
                 competition.set("end", dateEnd);
 
-                query.save(null, {
+                competition.save(null, {
                     success: function(competition) {
-                        console.log(competition);
-                        alert('New object created with objectId: ' + competition.id);
+                        window.location.href = "/#/competitions";
                     },
                     error: function(error) {
                         reject(error);
