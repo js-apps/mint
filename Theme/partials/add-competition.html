@@ -1,8 +1,11 @@
-<div class="container" >
+<div class="container">
     <div class="row" id="competition-add">
         <form class="form-horizontal">
             <fieldset>
                 <legend class="text-center">Add new competition</legend>
+                <div class="form-group">
+                    <label id="competition-add-error-label" class="has-error"></label>
+                </div>
                 <div class="form-group">
                     <label for="competitionTitle" class="col-lg-2 control-label">Title</label>
                     <div class="col-lg-10">
@@ -15,7 +18,6 @@
                         <textarea class="form-control" rows="3" id="competitionDescription" placeholder="Description"></textarea>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="competitionStart" class="col-lg-2 control-label">Start [Hours : Minutes]</label>
                     <div class="col-lg-10">
@@ -56,18 +58,13 @@
                             </select>
                         </div>
                         <div class="col-lg-4">
-                            <input type="datetime" class="form-control col-lg-3" rows="3" id="competitionStart" placeholder="Select Date"/>
-
+                            <input type="datetime" class="form-control col-lg-3" rows="3" id="competitionStart" placeholder="Select Date" />
                         </div>
-
-
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="competitionEnd" class="col-lg-2 control-label">End [Hours:Minutes]</label>
                     <div class="col-lg-10">
-
                         <div class="col-lg-4">
                             <select class="form-control col-lg-4" id="competitionEndHours">
                                 <option>00</option>
@@ -105,21 +102,19 @@
                             </select>
                         </div>
                         <div class="col-lg-4">
-                            <input type="datetime" class="form-control col-lg-4" rows="3" id="competitionEnd"  placeholder="Select Date"/>
+                            <input type="datetime" class="form-control col-lg-4" rows="3" id="competitionEnd" placeholder="Select Date" />
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button type="reset" class="btn btn-lg btn-default">Cancel</button>
-                        <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                        <button type="button" class="btn btn-lg btn-primary" id="competition-add-submit">Submit</button>
                     </div>
                 </div>
             </fieldset>
         </form>
     </div>
     <script>
-
     </script>
 </div>
