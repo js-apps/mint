@@ -1,14 +1,20 @@
 $(function() {
     $('#main-container').on('click', 'button[data-competition-join-id]', function() {
-        var competitionId = $(this).attr('data-competition-join-id');
-        var target = $(this);
-        var competition;
-        dataPersister
-            .getCompetitionObjectByCompetitionId(competitionId)
-            .then(function(result) {
-                competition = result;
-                dataPersister.joinCompetition(competition);
-            });
+        if (validator.userIsLoggedIn()) {
+            var competitionId = $(this).attr('data-competition-join-id');
+            var target = $(this);
+            var competition;
+            dataPersister
+                .getCompetitionObjectByCompetitionId(competitionId)
+                .then(function(result) {
+                    competition = result;
+                    dataPersister.joinCompetition(competition);
+                });
+
+            
+        } else {
+            $('#competition-join-error-label').html('Login in order to join the competition.');
+        }
     });
 
     $('#main-container').on('click', '#login-submit', function() {
@@ -74,43 +80,30 @@ $(function() {
     });
 
     $('#main-container').on('click', '#register-submit', function() {
-        var username = $('#username-reg').val();
-        var password = $('#password-reg').val();
-        var passwordConfirm = $('#confirm-password-reg').val();
-        var email = $('#email-reg').val();
+        var registrationInfoValidationResult = validator.validateRegistrationInfo();
 
-        var usernameValidationResult = validator.validateUsername(username);
-        var passwordValidationResult = validator.validatePassword(password);
-        var passwordMatchValidationResult = validator.validateMatchingPasswords(password, passwordConfirm);
-        var emailValidationResult = validator.validateEmail(email);
-
-        var usernameIsValid = usernameValidationResult.isValid;
-        var passwordIsValid = passwordValidationResult.isValid;
-        var passwordsMatch = passwordMatchValidationResult.isValid;
-        var emailIsValid = emailValidationResult.isValid;
-
-        if (usernameIsValid && passwordIsValid && passwordsMatch && emailIsValid) {
+        if (registrationInfoValidationResult.isValid) {
             user.register(username, password, email);
-        } else if (!usernameIsValid) {
-            $('#register-error-label')
-                .html('Username is not valid.');
-        } else if (!passwordIsValid) {
-            $('#register-error-label')
-                .html('Password is not valid.');
-        } else if (!passwordsMatch) {
-            $('#register-error-label')
-                .html('Passwords don\'t match.');
         } else {
-            $('#register-error-label')
-                .html('The email is not valid.');
+            $('#register-error-label').html(registrationInfoValidationResult.message);
         }
     });
 
     $('#main-container').on('click', '#post-submit', function() {
-        userPosts.makePost();
+        if (validator.userIsLoggedIn()) {
+            userPosts.makePost();
+        } else {
+            $('chat-error-label').html('Login in order to post in chat.');
+        }
     });
 
     $('#main-container').on('click', '#competition-add-submit', function() {
-        validator.validateCompetition();
+        var competitionValidationResult = validator.validateCompetition();
+
+        if (competitionValidationResult.isValid) {
+            dataPersister.addNewCompetition(title, description, start, end);
+        } else {
+            $('#competition-add-error-label').html(competitionValidationResult.message);
+        }
     });
 });

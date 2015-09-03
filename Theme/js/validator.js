@@ -10,7 +10,7 @@ var validator = (function() {
         USERNAME_REGEX: /^[a-zA-Z0-9_-]{3,16}$/,
         PASSWORD_REGEX: /^[a-zA-Z0-9_-]{6,18}$/,
         TITLE_REGEX: /^[a-zA-Z0-9_-]{3,30}$/,
-        isValid: {
+        IS_VALID: {
             isValid: true,
             message: ''
         }
@@ -26,7 +26,7 @@ var validator = (function() {
                         CONSTANTS.MAX_USERNAME_LENGTH + ' symbols long and can contain only letters, numbers, underscores, or hyphens!'
                 };
             } else {
-                return CONSTANTS.isValid;
+                return CONSTANTS.IS_VALID;
             }
         },
         validatePassword: function(password) {
@@ -38,12 +38,12 @@ var validator = (function() {
                         CONSTANTS.MAX_PASSWORD_LENGTH + ' symbols long and can contain only letters, numbers, underscores, or hyphens!'
                 };
             } else {
-                return CONSTANTS.isValid;
+                return CONSTANTS.IS_VALID;
             }
         },
         validateMatchingPasswords: function(passwordOne, passwordTwo) {
             if (passwordOne == passwordTwo) {
-                return CONSTANTS.isValid;
+                return CONSTANTS.IS_VALID;
             } else {
                 return {
                     isValid: false,
@@ -53,7 +53,7 @@ var validator = (function() {
         },
         validateEmail: function(email) {
             if (CONSTANTS.EMAIL_VALIDATION_REGEX.test(email)) {
-                return CONSTANTS.isValid;
+                return CONSTANTS.IS_VALID;
             } else {
                 return {
                     isValid: false,
@@ -63,7 +63,7 @@ var validator = (function() {
         },
         validateDate: function(date, hours, minutes, type) {
             if (date.length !== 1 && hours && minutes) {
-                return CONSTANTS.isValid;
+                return CONSTANTS.IS_VALID;
             } else if (date.length === 1) {
                 return {
                     isValid: false,
@@ -83,7 +83,7 @@ var validator = (function() {
         },
         validateDateSequence: function(dateOne, dateTwo) {
             if (dateOne < dateTwo) {
-                return CONSTANTS.isValid;
+                return CONSTANTS.IS_VALID;
             } else {
                 return {
                     isValid: false,
@@ -100,7 +100,7 @@ var validator = (function() {
                         CONSTANTS.MAX_TITLE_LENGTH + ' symbols long and can contain only letters, numbers, underscores, or hyphens!'
                 };
             } else {
-                return CONSTANTS.isValid;
+                return CONSTANTS.IS_VALID;
             }
         },
         validateCompetition: function() {
@@ -114,7 +114,7 @@ var validator = (function() {
                 endDate = $('#competitionEnd').val().split('/');
 
             if (description === '') {
-            	description = 'No description provided for this competition';
+                description = 'No description provided for this competition';
             }
 
             var startDateValidationResult = this.validateDate(startDate, startHour, startMinutes, 'start');
@@ -127,22 +127,53 @@ var validator = (function() {
                     var dateSequenceValidationResult = this.validateDateSequence(start, end);
 
                     if (dateSequenceValidationResult.isValid) {
-                        dataPersister.addNewCompetition(title, description, start, end);
+                        return CONSTANTS.IS_VALID;
                     } else {
-                        $('#competition-add-error-label')
-                        	.html(dateSequenceValidationResult.message);
+                        return dateSequenceValidationResult;
                     }
                 } else if (!startDateValidationResult.isValid) {
-                    $('#competition-add-error-label')
-                        	.html(startDateValidationResult.message);
+                    return startDateValidationResult;
                 } else if (!endDateValidationResult.isValid) {
-                    $('#competition-add-error-label')
-                        	.html(endDateValidationResult.message);
+                    return endDateValidationResult;
                 }
             } else {
-            	$('#competition-add-error-label')
-                        	.html(titleValidationResult.message);
+                return titleValidationResult;
             }
+        },
+        validateRegistrationInfo: function() {
+            var username = $('#username-reg').val();
+            var password = $('#password-reg').val();
+            var passwordConfirm = $('#confirm-password-reg').val();
+            var email = $('#email-reg').val();
+
+            var usernameValidationResult = validator.validateUsername(username);
+            var passwordValidationResult = validator.validatePassword(password);
+            var passwordMatchValidationResult = validator.validateMatchingPasswords(password, passwordConfirm);
+            var emailValidationResult = validator.validateEmail(email);
+
+            var usernameIsValid = usernameValidationResult.isValid;
+            var passwordIsValid = passwordValidationResult.isValid;
+            var passwordsMatch = passwordMatchValidationResult.isValid;
+            var emailIsValid = emailValidationResult.isValid;
+
+            if (usernameIsValid && passwordIsValid && passwordsMatch && emailIsValid) {
+                return CONSTANTS.IS_VALID;
+            } else if (!usernameIsValid) {
+                return usernameValidationResult;
+            } else if (!passwordIsValid) {
+                return passwordValidationResult;
+            } else if (!passwordsMatch) {
+                return passwordMatchValidationResult;
+            } else {
+                return emailValidationResult;
+            }
+        },
+        userIsLoggedIn: function() {
+        	if (Parse.User.current()) {
+        		return true;
+        	} else {
+        		return false;
+        	}
         }
     };
 
