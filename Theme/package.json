@@ -6,8 +6,12 @@
   "directories": {
     "test": "tests"
   },
+  "engines": {
+    "node": "0.12.4"
+  },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,11 +26,13 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "chai": "^3.2.0",
+    "express": "^4.13.3",
     "handlebars": "^4.0.0",
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
     "mocha": "^2.3.0",
     "parse": "^1.5.0",
+    "path": "^0.11.14",
     "sammy": "^0.7.6",
     "sinon": "^1.16.1",
     "sinon-chai": "^2.8.0"
