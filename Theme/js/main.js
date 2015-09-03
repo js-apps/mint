@@ -1,5 +1,6 @@
 $(function() {
     userButtons.set();
+    loader.attachEventHandlers();
 
     var app = Sammy('#main-container', function() {
         this.get('/#/', function() {
@@ -33,20 +34,12 @@ $(function() {
                 })
                 .then(function() {
                     return userPosts.getAllPosts();
-                })
-                .then(function() {
-                    $('#main-container').on('click', '#post-submit', function() {
-                        userPosts.makePost();
-                    });
-                })
+                });
         });
 
         this.get('/#/competitions', function() {
             loader
                 .getScript('helper')
-                .then(function() {
-                    return loader.getScript('join');
-                })
                 .then(function() {
                     return loader.getScript('data');
                 })
@@ -67,7 +60,7 @@ $(function() {
 
         this.get('/#/login', function() {
             loader
-                .getScript('login')
+                .getScript('user')
                 .then(function() {
                     return loader.getPartial('login');
                 })
@@ -86,14 +79,14 @@ $(function() {
             loader
                 .getScript('validator')
                 .then(function() {
-                    return loader.getScript('register');
+                    return loader.getScript('user');
                 })
                 .then(function() {
                     return loader.getPartial('register');
                 })
                 .then(function(data) {
                     viewer.updateUI(data);
-                })
+                });
         });
 
         this.get('/#/competitions/add', function() {
@@ -118,7 +111,7 @@ $(function() {
                     // }
                     // pass it to dateParser().addNewCompetition()
                     // goTo '/#/competitions
-                })
+                });
         });
 
         this.get('/#/user/:name', function() {
@@ -155,7 +148,7 @@ $(function() {
                 })
                 .then(function(data) {
                     viewer.updateUI(data);
-                })
+                });
         });
 
         this.get('/#/competitions/:id', function() {
@@ -167,9 +160,6 @@ $(function() {
                     return loader.getScript('data');
                 })
                 .then(function() {
-                    return loader.getScript('join');
-                })
-                .then(function() {
                     return loader.getPartial('competition');
                 })
                 .then(function(data) {
@@ -177,11 +167,11 @@ $(function() {
                 })
                 .then(function() {
                     dataPersister.getCompetition(competitionId);
-                })
+                });
         });
     });
 
     $(function() {
-        app.run('#/home');
+        app.run('/#/home');
     });
 });
