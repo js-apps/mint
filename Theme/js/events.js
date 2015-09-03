@@ -109,4 +109,8 @@ $(function() {
     $('#main-container').on('click', '#post-submit', function() {
         userPosts.makePost();
     });
+
+    $('#main-container').on('click', '#competition-add-submit', function() {
+        validator.validateCompetition();
+    });
 });
