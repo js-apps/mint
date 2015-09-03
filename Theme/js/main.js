@@ -91,26 +91,19 @@ $(function() {
 
         this.get('/#/competitions/add', function() {
             loader
-                .getPartial('add-competition')
+                .getScript('data')
+                .then(function() {
+                    return loader.getScript('validator');
+                })
+                .then(function() {
+                    return loader.getPartial('add-competition');
+                })
                 .then(function(data) {
                     return viewer.updateUI(data);
                 })
                 .then(function() {
                     $("#competitionStart").datepicker();
                     $("#competitionEnd").datepicker();
-                })
-                .then(function(){
-                    // get data from competition add
-                    // validateData()
-
-                    // addNewCompetition {
-                    // title
-                    // description
-                    // start
-                    // end
-                    // }
-                    // pass it to dateParser().addNewCompetition()
-                    // goTo '/#/competitions
                 });
         });
 
