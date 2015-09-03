@@ -47,7 +47,10 @@ var userPosts = (function() {
                 success: function() {
                     $postResult.html('Post submitted').fadeOut(4000);
                     $('#post-content').val('');
-                    $('#post-list').append('<li>' + userName + ': ' + newPost.get('content') + '</li>');
+                    var $li = $('<li />')
+                                .append($('<a/>').attr('href', '/#/user/' + userName).html(userName + ':'))
+                                .append($('<p/>').html(newPost.get('content')));
+                            $('#post-list').append($li);
                 },
                 error: function(err) {
                     alert("Error: " + error.code + " " + error.message);
