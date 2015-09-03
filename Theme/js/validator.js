@@ -141,6 +141,7 @@ var validator = (function() {
             }
         },
         validateRegistrationInfo: function() {
+        	debugger;
             var username = $('#username-reg').val();
             var password = $('#password-reg').val();
             var passwordConfirm = $('#confirm-password-reg').val();
@@ -157,7 +158,14 @@ var validator = (function() {
             var emailIsValid = emailValidationResult.isValid;
 
             if (usernameIsValid && passwordIsValid && passwordsMatch && emailIsValid) {
-                return CONSTANTS.IS_VALID;
+                return {
+                	isValid: true,
+                	userInfo: {
+                		username: username,
+                		password: password,
+                		email: email
+                	}
+                };
             } else if (!usernameIsValid) {
                 return usernameValidationResult;
             } else if (!passwordIsValid) {

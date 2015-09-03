@@ -9,9 +9,7 @@ $(function() {
                 .then(function(result) {
                     competition = result;
                     dataPersister.joinCompetition(competition);
-                });
-
-            
+                });       
         } else {
             $('#competition-join-error-label').html('Login in order to join the competition.');
         }
@@ -83,7 +81,8 @@ $(function() {
         var registrationInfoValidationResult = validator.validateRegistrationInfo();
 
         if (registrationInfoValidationResult.isValid) {
-            user.register(username, password, email);
+            var userInfo = registrationInfoValidationResult.userInfo;
+            user.register(userInfo.username, userInfo.password, userInfo.email);
         } else {
             $('#register-error-label').html(registrationInfoValidationResult.message);
         }
