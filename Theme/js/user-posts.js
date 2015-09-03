@@ -12,7 +12,10 @@ var userPosts = (function() {
                             var post = posts[i];
                             var user = posts[i].get('user');
                             var userName = user.get('username');
-                            $('#post-list').append('<li>' + userName + ': ' + post.get('content') + '</li>');
+                            var $li = $('<li />')
+                            	.append($('<a/>').attr('href', '/#/user/' + userName).html(userName + ':'))
+                            	.append($('<p/>').html(post.get('content')));
+                            $('#post-list').append($li);
                         }
 
                         resolve();
