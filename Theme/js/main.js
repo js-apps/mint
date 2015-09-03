@@ -77,10 +77,7 @@ $(function() {
 
         this.get('/#/register', function() {
             loader
-                .getScript('validator')
-                .then(function() {
-                    return loader.getScript('user');
-                })
+                .getScript('user')
                 .then(function() {
                     return loader.getPartial('register');
                 })
@@ -92,9 +89,6 @@ $(function() {
         this.get('/#/competitions/add', function() {
             loader
                 .getScript('data')
-                .then(function() {
-                    return loader.getScript('validator');
-                })
                 .then(function() {
                     return loader.getPartial('add-competition');
                 })
