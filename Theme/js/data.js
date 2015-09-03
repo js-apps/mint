@@ -36,7 +36,6 @@ var dataPersister = (function() {
                     }
                 },
                 error: function(error) {
-                    alert("Error: " + error.code + " " + error.message);
                 }
             });
         },
@@ -50,11 +49,8 @@ var dataPersister = (function() {
 
             userCompetitionRelation.save(null, {
                 success: function(obj) {
-                    console.log("succesfully created obj" + obj.id);
                 },
                 error: function(gameScore, error) {
-                    // The save failed.
-                    console.log("failed to create obj");
                 }
             });
         },
