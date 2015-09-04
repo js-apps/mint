@@ -29,4 +29,40 @@ describe("Validator", function() {
             expect(validator.validateEmail).to.be.an('function');
         });
     });
+
+    describe("#validateDate", function() {
+        it("expect the function to exist", function() {
+            expect(validator.validateDate).to.be.an('function');
+        });
+    });
+
+    describe("#validateDateSequence", function() {
+        it("expect the function to exist", function() {
+            expect(validator.validateDateSequence).to.be.an('function');
+        });
+    });
+
+    describe("#validateTitle", function() {
+        it("expect the function to exist", function() {
+            expect(validator.validateTitle).to.be.an('function');
+        });
+    });
+
+    describe("#validateCompetition", function() {
+        it("expect the function to exist", function() {
+            expect(validator.validateCompetition).to.be.an('function');
+        });
+    });
+
+    describe("#validateRegistrationInfo", function() {
+        it("expect the function to exist", function() {
+            expect(validator.validateRegistrationInfo).to.be.an('function');
+        });
+    });
+
+    describe("#userIsLoggedIn", function() {
+        it("expect the function to exist", function() {
+            expect(validator.userIsLoggedIn).to.be.an('function');
+        });
+    });
 });
