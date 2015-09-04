@@ -4,9 +4,9 @@ This is the official repository for the teamwork project of team "Mint Julep" fo
 
 ## Idea
 
-A side where one can join existing, as well as create new competitions for other users to join.
+An application where one can join existing, as well as create new competitions for other users to join.
 The users may also communicate with one another using the chat system and go to each others
-profiles to see more info about the user.
+profiles to see more info about one another.
 
 ## Characteristics
 
