@@ -100,7 +100,8 @@ $(function() {
         var competitionValidationResult = validator.validateCompetition();
 
         if (competitionValidationResult.isValid) {
-            dataPersister.addNewCompetition(title, description, start, end);
+            var competitionInfo = competitionValidationResult.competitionInfo;
+            dataPersister.addNewCompetition(competitionInfo.title, competitionInfo.description, competitionInfo.start, competitionInfo.end);
         } else {
             $('#competition-add-error-label').html(competitionValidationResult.message);
         }

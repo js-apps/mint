@@ -127,7 +127,15 @@ var validator = (function() {
                     var dateSequenceValidationResult = this.validateDateSequence(start, end);
 
                     if (dateSequenceValidationResult.isValid) {
-                        return CONSTANTS.IS_VALID;
+                        return {
+                        	isValid: true,
+                        	competitionInfo: {
+                        		title: title,
+                        		description: description,
+                        		start: start,
+                        		end: end
+                        	}
+                        };
                     } else {
                         return dateSequenceValidationResult;
                     }
@@ -141,7 +149,6 @@ var validator = (function() {
             }
         },
         validateRegistrationInfo: function() {
-        	debugger;
             var username = $('#username-reg').val();
             var password = $('#password-reg').val();
             var passwordConfirm = $('#confirm-password-reg').val();
